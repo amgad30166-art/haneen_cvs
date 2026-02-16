@@ -26,10 +26,19 @@ def generate():
         "medical_fit": True
     }
 
-    output_path = generate_cv(data)
+    def generate_cv(data):
+    OUTPUT_DIR = r"D:\out"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    return send_file(output_path, as_attachment=True)
+    file_name = f"{data['full_name']}_CV.pdf"
+    output_path = os.path.join(OUTPUT_DIR, file_name)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    doc = SimpleDocTemplate(output_path, pagesize=A4)
+    elements = []
+
+    # Build your CV content here...
+
+    doc.build(elements)
+
+    return output_path
 
